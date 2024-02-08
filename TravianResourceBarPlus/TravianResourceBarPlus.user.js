@@ -12,7 +12,7 @@
 // @exclude     *.css
 // @exclude     *.js
 
-// @version        2.24.3
+// @version        2.24.4
 // ==/UserScript==
 
 (function () {
@@ -3042,37 +3042,52 @@ function needed_show( base ) {
 
 
             // Pull Resource - Hero
-            if(RB.wantsMem[0] > 0 && r1 > 0){
-            param = '{"action":"inventory","itemId":'+r1+',"amount":'+RB.wantsMem[0]+',"villageId":'+villageId+'}';
-            ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "PUT", param, function getResourcePut(Response){
-                ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "POST", param, function onSuccessRedirect(Res){
-                    location.reload();
-                }, dummy);
-            }, dummy);
-            }else if(RB.wantsMem[1] > 0 && r2 > 0){
-                param = '{"action":"inventory","itemId":'+r2+',"amount":'+RB.wantsMem[1]+',"villageId":'+villageId+'}';
-                ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "PUT", param, function getResourcePut(Response){
-                    ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "POST", param, function onSuccessRedirect(Res){
-                        location.reload();
-                    }, dummy);
-                }, dummy);
-            }else if(RB.wantsMem[2] > 0 && r3 > 0){
-                param = '{"action":"inventory","itemId":'+r3+',"amount":'+RB.wantsMem[2]+',"villageId":'+villageId+'}';
-                ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "PUT", param, function getResourcePut(Response){
-                    ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "POST", param, function onSuccessRedirect(Res){
-                        location.reload();
-                    }, dummy);
-                }, dummy);
-            } else if(RB.wantsMem[3] > 0 && r4 > 0){
+            var waiting_next_pull = 500; // 1000 ms = 1 sec.
+            function Pull_R1(){
+                if(RB.wantsMem[0] > 0 && r1 > 0){
+                    param = '{"action":"inventory","itemId":'+r1+',"amount":'+RB.wantsMem[0]+',"villageId":'+villageId+'}';
+                    ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "PUT", param, function getResourcePut(Response){
+                        ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "POST", param, function onSuccessRedirect(Res){
+                            setTimeout(Pull_R2, waiting_next_pull);
+                        }, Pull_R2);
+                    }, Pull_R2);
+                }else{ setTimeout(Pull_R2, waiting_next_pull); }
+            }
+            function Pull_R2(){
+                if(RB.wantsMem[1] > 0 && r2 > 0){
+                    param = '{"action":"inventory","itemId":'+r2+',"amount":'+RB.wantsMem[1]+',"villageId":'+villageId+'}';
+                    ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "PUT", param, function getResourcePut(Response){
+                        ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "POST", param, function onSuccessRedirect(Res){
+                            setTimeout(Pull_R3, waiting_next_pull);
+                        }, Pull_R3);
+                    }, Pull_R3);
+                }else{ setTimeout(Pull_R3, waiting_next_pull); }
+            }
+            function Pull_R3(){
+                if(RB.wantsMem[2] > 0 && r3 > 0){
+                    param = '{"action":"inventory","itemId":'+r3+',"amount":'+RB.wantsMem[2]+',"villageId":'+villageId+'}';
+                    ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "PUT", param, function getResourcePut(Response){
+                        ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "POST", param, function onSuccessRedirect(Res){
+                            setTimeout(Pull_R4, waiting_next_pull);
+                        }, Pull_R4);
+                    }, Pull_R4);
+                }else{ setTimeout(Pull_R4, waiting_next_pull); }
+            }
+            function Pull_R4(){
+                if(RB.wantsMem[3] > 0 && r4 > 0){
                 param = '{"action":"inventory","itemId":'+r4+',"amount":'+RB.wantsMem[3]+',"villageId":'+villageId+'}';
-                ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "PUT", param, function getResourcePut(Response){
-                    ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "POST", param, function onSuccessRedirect(Res){
-                        location.reload();
+                    ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "PUT", param, function getResourcePut(Response){
+                        ajaxRequest(fullName + 'api/v1/hero/v2/inventory/use-item', "POST", param, function onSuccessRedirect(Res){
+                            location.reload();
+                        }, dummy);
                     }, dummy);
-                }, dummy);
+                }else{ location.reload(); }
             }
 
-        }, dummy);
+            // Pull R1 Call
+            Pull_R1();
+
+        }, dummy, dummy);
     }
 	function showPlusTimer () {
 		if (RB.Setup[10] > 2 && $g('merchantsOnTheWay')) return;

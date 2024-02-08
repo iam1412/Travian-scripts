@@ -4,11 +4,11 @@
 
 2. Click on any script you want to install:
 
-   [TravianResourceBarPlus](https://github.com/adipiciu/Travian-scripts/raw/main/TravianResourceBarPlus/TravianResourceBarPlus.user.js)
+   [TravianResourceBarPlus](https://github.com/iam1412/Travian-scripts/raw/main/TravianResourceBarPlus/TravianResourceBarPlus.user.js)
 
-   [TravianTaskQueue](https://github.com/adipiciu/Travian-scripts/raw/main/TravianTaskQueue/TravianTaskQueue.user.js)
+   [TravianTaskQueue](https://github.com/iam1412/Travian-scripts/raw/main/TravianTaskQueue/TravianTaskQueue.user.js)
 
-   [TravianWaveBuilder](https://github.com/adipiciu/Travian-scripts/raw/main/TravianWaveBuilder/TravianWaveBuilder.user.js)
+   [TravianWaveBuilder](https://github.com/iam1412/Travian-scripts/raw/main/TravianWaveBuilder/TravianWaveBuilder.user.js)
 
 3. The script will be opened in your userscript manager. Click Install.
 

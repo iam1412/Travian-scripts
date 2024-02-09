@@ -12,7 +12,7 @@
 // @exclude     *.css
 // @exclude     *.js
 
-// @version        2.24.4
+// @version        2.24.3
 // ==/UserScript==
 
 (function () {
@@ -3084,7 +3084,7 @@ function needed_show( base ) {
                 }else{ location.reload(); }
             }
 
-            // Pull R1 Call
+            // Pull Call
             Pull_R1();
 
         }, dummy, dummy);
@@ -4573,7 +4573,6 @@ function sendResTropAdd ( aLink, aType ) {
 }
 
 // begin Quick actions to my other villages
-
 function vlist_addButtonsT4 () {
 	var vlist = $g("sidebarBoxVillagelist");
 	var villages = $gc("listEntry",vlist);
@@ -4585,10 +4584,10 @@ function vlist_addButtonsT4 () {
 			var myVid = getVidFromCoords(coords.innerHTML);
             var nd = parseInt(linkVSwitch[vn].match(/newdid=(\d+)/)[1]);
 			villages_id[vn] = myVid;
-            villageId = nd;
 
 			if( linkEl.hasAttribute('class') && linkEl.getAttribute('class').match(/active/i) ) {
 				village_aid = myVid; village_aNum = vn;
+                		villageId = parseInt(linkVSwitch[vn].match(/newdid=(\d+)/)[1]);
 			}
 			linkHint($gc('name',linkEl)[0], myVid);
 			villages_count++;

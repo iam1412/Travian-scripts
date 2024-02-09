@@ -3133,15 +3133,17 @@ function needed_show( base ) {
 		beforeThis.appendChild($em('SPAN',['(',trImg('npc_inactive'),' ',timerB[j].obj,') ']));
 	}
 	var memP = $a('(Pull Resource)',[['href',jsVoid],['dir','ltr']]);
-	memP.addEventListener('click', function(x) { return function() { getInstantResource(x); }}(wantsResMem), 0);
+	memP.addEventListener('click', function(x) { return function() { memP.textContent = 'Waiting...'; getInstantResource(x); }}(wantsResMem), 0);
 	beforeThis.appendChild(memP);
-	var memP = $a('(M)',[['href',jsVoid],['dir','ltr']]);
-	memP.addEventListener('click', function(x) { return function() { saveWantsMem(x); }}(wantsResMem), 0);
-	beforeThis.appendChild(memP);
+
+	var memPM = $a('(M)',[['href',jsVoid],['dir','ltr']]);
+	memPM.addEventListener('click', function(x) { return function() { saveWantsMem(x); }}(wantsResMem), 0);
+	beforeThis.appendChild(memPM);
+
 	if( RB.wantsMem[4] == village_aid ) {
-		var memP = $a(' (M+)',[['href',jsVoid]]);
-		memP.addEventListener('click', function(x) { return function() { saveWantsMem(x); }}(wantsResMemP), 0);
-		beforeThis.appendChild(memP);
+		var memPMPlus = $a(' (M+)',[['href',jsVoid]]);
+		memPMPlus.addEventListener('click', function(x) { return function() { saveWantsMem(x); }}(wantsResMemP), 0);
+		beforeThis.appendChild(memPMPlus);
 	}
 
 	return beforeThis;
@@ -4587,7 +4589,7 @@ function vlist_addButtonsT4 () {
 
 			if( linkEl.hasAttribute('class') && linkEl.getAttribute('class').match(/active/i) ) {
 				village_aid = myVid; village_aNum = vn;
-                		villageId = parseInt(linkVSwitch[vn].match(/newdid=(\d+)/)[1]);
+                villageId = parseInt(linkVSwitch[vn].match(/newdid=(\d+)/)[1]);
 			}
 			linkHint($gc('name',linkEl)[0], myVid);
 			villages_count++;
